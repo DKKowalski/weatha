@@ -5,11 +5,14 @@ import {
 } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { useEffect } from "react";
 import { Alert } from "react-native";
 
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { ThemeProvider, useTheme } from "@/context/theme";
 import "@/global.css";
+import { initLocation } from "@/hooks/useLocation";
+import { useWeatherStore } from "@/store/store";
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -33,6 +36,14 @@ const queryClient = new QueryClient({
 
 function Providers() {
   const { theme } = useTheme();
+
+  useEffect(() => {
+    const store = useWeatherStore.getState();
+    if (store.coords) return;
+    initLocation().catch((err) => {
+      console.log("Location init error", err);
+    });
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
