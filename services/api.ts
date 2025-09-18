@@ -1,6 +1,12 @@
 import axios from "axios";
+import Constants from "expo-constants";
 
-const API_KEY = process.env.EXPO_PUBLIC_OPENWEATHER_API_KEY;
+const extras = (Constants.expoConfig?.extra ?? {}) as {
+  EXPO_PUBLIC_OPENWEATHER_API_KEY?: string;
+};
+
+const API_KEY = extras.EXPO_PUBLIC_OPENWEATHER_API_KEY;
+
 const BASE_URL = "https://api.openweathermap.org/data/2.5";
 
 export async function fetchCurrentWeather(

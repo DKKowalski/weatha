@@ -32,10 +32,10 @@ export default function NoDataAvailable() {
   return (
     <Box className="flex-1 justify-center items-center px-6 bg-background-0">
       <VStack space="lg" className="w-full max-w-md items-center">
-        <Text className="text-2xl font-bold text-center text-text-900">
+        <Text className="text-2xl font-bold text-center text-typography-900">
           Location Unavailable
         </Text>
-        <Text className="text-md text-center text-text-600">
+        <Text className="text-md text-center text-typography-600">
           We couldn’t access your location. Search for a city manually.
         </Text>
 
