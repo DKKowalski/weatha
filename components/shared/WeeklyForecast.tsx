@@ -26,12 +26,14 @@ export const WeeklyForecast = ({
 }: WeeklyForecastProps) => {
   const data = Array.isArray(forecast) ? forecast : [];
   return (
-    <VStack className="flex-[0.6] rounded-xl bg-background-50 px-4">
-      <Text className="text-typography-800 text-3xl mb-4 mt-10">This week</Text>
+    <VStack className="flex-[0.6] rounded-xl bg-background-50">
+      <Text className="text-typography-800 text-3xl mb-4 mt-10 px-2">This week</Text>
       <FlatList
+      contentContainerStyle={{ padding: 10 }}
+      
         data={data}
         keyExtractor={(_, index) => String(index)}
-        ItemSeparatorComponent={() => <Box className="h-4" />}
+        ItemSeparatorComponent={() => <Box className="h-1" />}
         ListEmptyComponent={() => (
           <HStack className="items-center py-10 gap-4">
             <Icon as={InfoIcon} size="xl" className="text-typography-500" />
@@ -61,7 +63,7 @@ export const WeeklyForecast = ({
                   resizeMode="contain"
                 />
               </Box>
-              <Text className="text-typography-500 text-xl">
+              <Text className="text-typography-500 text-xl" numberOfLines={1}>
                 {day.condition}
               </Text>
             </HStack>

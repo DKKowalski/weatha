@@ -30,13 +30,13 @@ export function WeatherHeader({
       <HStack className="justify-between items-center">
         <VStack>
           <Text
-            className={`font-bold text-5xl ${
+            className={`font-bold text-3xl ${
               theme === "dark" ? "text-typography-100" : "text-typography-900"
             }`}
           >
             {location ?? "---, -----"}
           </Text>
-          <Text className="text-typography-500 text-2xl">
+          <Text className="text-typography-500 text-xl">
             {dateTime ?? "-----"}
           </Text>
         </VStack>
@@ -45,14 +45,14 @@ export function WeatherHeader({
           <Pressable onPress={onPressSearch}>
             <Icon
               as={SearchIcon}
-              size="xl"
+              size="md"
               className="text-typography-500 w-10 h-10"
             />
           </Pressable>
           <Pressable onPress={toggleTheme}>
             <Icon
               as={theme === "dark" ? SunIcon : MoonIcon}
-              size="xl"
+              size="md"
               className="text-typography-500 w-10 h-10"
             />
           </Pressable>
