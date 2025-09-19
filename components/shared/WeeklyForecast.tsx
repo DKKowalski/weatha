@@ -33,9 +33,9 @@ export const WeeklyForecast = ({
         keyExtractor={(_, index) => String(index)}
         ItemSeparatorComponent={() => <Box className="h-4" />}
         ListEmptyComponent={() => (
-          <HStack className="items-center  py-10 gap-4">
+          <HStack className="items-center py-10 gap-4">
             <Icon as={InfoIcon} size="xl" className="text-typography-500" />
-            <Text className="text-typography-500">
+            <Text className="text-typography-500 text-center">
               No data available. Use the search button to get weather data.
             </Text>
           </HStack>

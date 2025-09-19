@@ -42,7 +42,6 @@ export default function NoDataAvailable({
   );
 
   async function handleSearch() {
-    console
     if (!city.trim()) return;
     setLoading(true);
     try {
