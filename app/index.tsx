@@ -6,7 +6,7 @@ import LoadingScreen from "@/components/shared/LoadingScreen";
 import { WeatherHeader } from "@/components/shared/WeatherHeader";
 import { WeeklyForecast } from "@/components/shared/WeeklyForecast";
 
-import NoDataAvailable from "@/components/shared/NoDataAvailableScreen";
+import NoDataAvailable from "@/components/shared/NoDataAvailableBottomSheet";
 import { useWeather } from "@/hooks/useWeather";
 import { useWeatherStore } from "@/store/store";
 import * as Haptics from "expo-haptics";

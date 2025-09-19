@@ -17,6 +17,9 @@ A minimal weather app built with Expo that requests your location, fetches the c
 - **Persistence**: Zustand + AsyncStorage stores last weather and settings
 - **Theming**: light/dark toggle, system-aware
 - **UI/Platform**: GlueStack UI v3, Expo SDK 54
+- **Bottom sheet search**: overlay search UI for manual city lookup
+- **Header search toggle with haptics**: quick open/close of search
+- **Empty state UX**: FlatList shows info icon + Search CTA when empty
 
 ## Screenshots
 
@@ -35,6 +38,9 @@ A minimal weather app built with Expo that requests your location, fetches the c
 - Zustand + @react-native-async-storage/async-storage
 - Expo Location
 - Axios
+- @gorhom/bottom-sheet (Reanimated v4)
+- react-native-gesture-handler
+- react-native-reanimated
 
 ## How it works
 
@@ -46,6 +52,13 @@ A minimal weather app built with Expo that requests your location, fetches the c
   - Forecast staleTime: 30 minutes
 - Last successful data is persisted, so you see previous results immediately on reopen while freshness checks run.
 - Theme can follow system or be toggled to light/dark.
+
+### Search & Empty States
+
+- The header search button toggles a bottom sheet overlay (NoDataAvailable).
+- On successful search, the sheet closes and updates coordinates.
+- On failure, a GlueStack Toast appears with the error message.
+- Weekly forecast uses FlatList; when empty it shows an info icon and a Search button.
 
 ## OpenWeather API Key
 
