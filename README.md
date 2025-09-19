@@ -27,6 +27,8 @@ A minimal weather app built with Expo that requests your location, fetches the c
   <img src="./assets/images/weatha-light.jpg" alt="Weatha Light" width="30%" />
   <img src="./assets/images/weatha-dark.jpg" alt="Weatha Dark" width="30%" />
   <img src="./assets/images/weatha-unavailable-location.jpg" alt="Location Unavailable" width="30%" />
+  <img src="./assets/images/weatha-no-data-light.jpg" alt="No Data (Light)" width="30%" />
+  <img src="./assets/images/weatha-no-data-dark.jpg" alt="No Data (Dark)" width="30%" />
 </p>
 
 ## Tech Stack
