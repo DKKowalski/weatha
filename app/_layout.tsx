@@ -13,6 +13,7 @@ import { ThemeProvider, useTheme } from "@/context/theme";
 import "@/global.css";
 import { initLocation } from "@/hooks/useLocation";
 import { useWeatherStore } from "@/store/store";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -68,7 +69,9 @@ function Providers() {
 export default function RootLayout() {
   return (
     <ThemeProvider>
-      <Providers />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <Providers />
+      </GestureHandlerRootView>
     </ThemeProvider>
   );
 }

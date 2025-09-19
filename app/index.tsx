@@ -3,12 +3,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { CurrentWeather } from "@/components/shared/CurrentWeather";
 import LoadingScreen from "@/components/shared/LoadingScreen";
-import NoDataAvailable from "@/components/shared/NoDataAvailableScreen";
 import { WeatherHeader } from "@/components/shared/WeatherHeader";
 import { WeeklyForecast } from "@/components/shared/WeeklyForecast";
 
+import NoDataAvailable from "@/components/shared/NoDataAvailableScreen";
 import { useWeather } from "@/hooks/useWeather";
 import { useWeatherStore } from "@/store/store";
+import * as Haptics from "expo-haptics";
+import React, { useState } from "react";
 
 export default function Index() {
   const coords = useWeatherStore((s) => s.coords);
@@ -21,17 +23,14 @@ export default function Index() {
   // helpers
   const hasPersistedData = !!lastCurrent && !!lastForecast;
   const isLoading = current.isLoading || forecast.isLoading;
-  const hasErrors = current.error || forecast.error;
-  const hasNoFreshData =
-    !current.data ||
-    !forecast.data ||
-    (Array.isArray(forecast.data) && forecast.data.length === 0);
 
-  // invalid if: no coords OR (no persisted data + either error or empty data)
-  const isInvalid =
-    !coords || (!hasPersistedData && (hasErrors || hasNoFreshData));
+  const [showSearch, setShowSearch] = useState(false);
+  const toggleSearch = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    setShowSearch((prev) => !prev);
+  };
+  const closeSearch = () => setShowSearch(false);
 
-  if (isInvalid) return <NoDataAvailable />;
   if (!hasPersistedData && isLoading) {
     return (
       <LoadingScreen>
@@ -40,24 +39,42 @@ export default function Index() {
     );
   }
 
-  const currentWeather = current.data || lastCurrent;
-  const forecastWeather = forecast.data || lastForecast;
+  const cw = (current.data || lastCurrent || null) as any | null;
+  const headerCity = (cw?.city as string | undefined) ?? undefined;
+  const country = (cw?.country as string | undefined) ?? undefined;
+  const locationParts = [headerCity, country].filter(Boolean) as string[];
+  const safeLocation = locationParts.length
+    ? locationParts.join(", ")
+    : undefined;
+  const dateTime = (cw?.dateTime as string | undefined) ?? undefined;
+  const tempStr = cw?.temp != null ? String(cw.temp) : "--";
+  const condition = (cw?.description as string | undefined) ?? "No data";
+  const iconSrc = cw?.icon
+    ? typeof cw.icon === "string"
+      ? { uri: cw.icon }
+      : cw.icon
+    : require("@/assets/images/sunny-cloud.png");
+
+  const forecastWeather = (forecast.data || lastForecast || []) as any[];
 
   return (
     <SafeAreaView className="flex-1 p-2 bg-background-0">
       <WeatherHeader
-        location={`${currentWeather.city}, ${currentWeather.country}`}
-        dateTime={currentWeather.dateTime}
+        location={safeLocation}
+        dateTime={dateTime}
+        onPressSearch={toggleSearch}
       />
 
       <CurrentWeather
-        temperature={`${currentWeather.temp}°`}
-        condition={currentWeather.description}
-        weatherIcon={{ uri: currentWeather.icon }}
-        alt={currentWeather.description}
+        temperature={`${tempStr}°`}
+        condition={condition}
+        weatherIcon={iconSrc}
+        alt={condition}
       />
 
       <WeeklyForecast forecast={forecastWeather} />
+
+      {showSearch ? <NoDataAvailable onClosed={closeSearch} /> : null}
     </SafeAreaView>
   );
 }
