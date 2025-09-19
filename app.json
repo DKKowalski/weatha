@@ -8,7 +8,6 @@
     "scheme": "weatha",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-
     "ios": {
       "supportsTablet": true
     },
@@ -48,6 +47,11 @@
     "experiments": {
       "typedRoutes": true
     },
-    "owner": "dkkowalski"
+    "owner": "dkkowalski",
+    "extra": {
+      "eas": {
+        "projectId": "f23c5162-bcbb-40b1-95d6-1dd2d933ad0c"
+      }
+    }
   }
 }
