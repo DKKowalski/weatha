@@ -11,7 +11,7 @@ A minimal weather app built with Expo that requests your location, fetches the c
 ## Features
 
 - **Current weather**: based on your location
-- **Weekly forecast**: 5‑day outlook
+- **Weekly forecast**: next 7 days
 - **Permission-aware**: manual city entry if location is denied
 - **Smart caching**: React Query staleness and background refetch
 - **Persistence**: Zustand + AsyncStorage stores last weather and settings
@@ -45,7 +45,7 @@ A minimal weather app built with Expo that requests your location, fetches the c
 ## How it works
 
 - On launch, the app requests foreground location permission with `expo-location`.
-- If granted, it fetches current weather and forecast from OpenWeather using your coordinates.
+- If granted, it fetches current weather and a 7‑day forecast from OpenWeather using your coordinates.
 - If denied/unavailable, it shows a city search screen to set coordinates.
 - React Query manages fetching, caching and staleness:
   - Current weather staleTime: 5 minutes
@@ -111,7 +111,7 @@ assets/images/      # App images (weatha-*.jpg)
 
 ## Key Implementation Details
 
-- Data fetching: `@tanstack/react-query` with alert-based error handling
+- Data fetching: `@tanstack/react-query` with GlueStack Toast error handling
 - Stale times: current (5 min), forecast (30 min)
 - Persistence: Zustand + AsyncStorage (`weather-ui` storage key)
 - Location: `expo-location` for permissions and coordinates
@@ -120,6 +120,18 @@ assets/images/      # App images (weatha-*.jpg)
 ## Assets
 
 Extra Weatha images live in `assets/images` and start with the `weatha` prefix.
+
+## Challenge Coverage
+
+- Navigation: single‑page app using `expo-router` (`app/index.tsx`).
+- Theming: light/dark + system, styled with GlueStack.
+- Weather Integration:
+  - OpenWeatherMap API (Axios)
+  - Loading state (LoadingScreen)
+  - Local cache/persist (React Query + Zustand)
+  - Current weather: temperature, icon, condition
+  - 7‑day forecast: `WeeklyForecast` using `FlatList` with empty state
+- User Location: `expo-location` with manual city search via bottom sheet when unavailable
 
 ## Credits
 
